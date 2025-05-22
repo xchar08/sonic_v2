@@ -1,4 +1,5 @@
 // electron/preload.ts
+export {}; // Explicitly make this file a module
 
 const { contextBridge, ipcRenderer } = require('electron');
 

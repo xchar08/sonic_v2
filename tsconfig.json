@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "noEmit": true,
+    "noEmit": true, // Keep true for Next.js side
     "resolveJsonModule": true,
     "isolatedModules": true,
     "plugins": [
@@ -29,10 +29,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "electron/**/*",
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "electron/**/*" // EXCLUDE electron files from the main tsconfig.json
   ]
 }

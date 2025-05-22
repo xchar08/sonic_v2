@@ -6,6 +6,8 @@
   "engines": {
     "node": ">=18.17.0"
   },
+  "type": "module",
+
   "scripts": {
     "dev": "cross-env NODE_ENV=development concurrently \"npm run dev:next\" \"npm run dev:electron\"",
     "dev:next": "next dev --turbo",

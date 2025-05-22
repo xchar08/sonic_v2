@@ -6,9 +6,12 @@
       "outDir": "dist/electron",
       "module": "CommonJS",
       "target": "ES2021",
-      "rootDir": "./electron",
-      "moduleResolution": "node"
+      "rootDir": "./electron", // Re-add rootDir as it helps with output structure
+      "moduleResolution": "node",
+      "noEmit": false, // Must be false for Electron compilation
+      "noEmitOnError": false,
+      "esModuleInterop": true
     },
-    "include": ["electron/**/*"],
+    "include": ["electron/**/*.ts"], // Keep this broad to cover all .ts files in electron/
     "exclude": ["node_modules"]
-  }
+}
