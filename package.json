@@ -2,19 +2,20 @@
   "name": "jarvis-assistant",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/electron/main.js",
+  "main": "dist/electron/main.cjs",
   "engines": {
     "node": ">=18.17.0"
   },
   "type": "module",
-
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run dev:next\" \"npm run dev:electron\"",
-    "dev:next": "next dev --turbo",
-    "dev:electron": "wait-on http://localhost:3000 && rimraf dist && tsc -p tsconfig.electron.json --noEmitOnError false --pretty && if exist dist\\electron\\main.js (electron dist/electron/main.js) else (echo Compilation failed, check tsc output && exit /b 1)",
-    "build": "next build && next export && tsc -p tsconfig.electron.json",
-    "start": "electron dist/electron/main.js",
-    "rebuild": "electron-rebuild -v 32.3.3 -f"
+    "dev:next": "next dev",
+    "dev:electron:watch": "cross-env NODE_ENV=development nodemon --watch 'electron/**/*.ts' --exec \"npm run electron:build && npm run electron:start\"",
+    "dev": "concurrently \"npm:dev:next\" \"wait-on http://localhost:3000 && npm run dev:electron:watch\"",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "electron:build": "tsc --project tsconfig.electron.json",
+    "electron:start": "electron dist/electron/main.cjs"
   },
   "dependencies": {
     "@cerebras/cerebras_cloud_sdk": "1.29.0",
@@ -25,7 +26,6 @@
     "axios": "1.7.7",
     "electron": "^32.3.3",
     "electron-builder": "24.13.3",
-    "electron-is-dev": "3.0.1",
     "gsap": "^3.13.0",
     "next": "^14.2.15",
     "openai": "4.67.3",
@@ -59,6 +59,7 @@
     "files": [
       "electron/**/*",
       "out/**/*",
+      "capabilities/**/*",
       "node_modules/**/*",
       "package.json"
     ],
@@ -66,7 +67,8 @@
       "output": "dist"
     },
     "asarUnpack": [
-      "node_modules/robotjs/**/*"
+      "node_modules/robotjs/**/*",
+      "capabilities/**/*"
     ],
     "win": {
       "icon": "assets/icon.ico"
@@ -75,6 +77,13 @@
       {
         "from": "assets/",
         "to": "assets/",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "capabilities/",
+        "to": "capabilities/",
         "filter": [
           "**/*"
         ]

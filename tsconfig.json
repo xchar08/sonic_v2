@@ -30,7 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "electron/preload.cts", "electron/main.cts", "electron/loadCapabilities.cts"  ],
   "exclude": [
     "node_modules",
     "electron/**/*" // EXCLUDE electron files from the main tsconfig.json
